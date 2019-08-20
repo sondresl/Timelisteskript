@@ -2,7 +2,7 @@
 
 ## How to:
 
-For å generere timelisten trenger du tre elemter:
+For å generere timelisten trenger du tre elementer:
 
 - Skriptet
 - Blank timeliste
