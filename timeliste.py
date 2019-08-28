@@ -48,7 +48,7 @@ def fill_dict(output, data):
         output[field] = int(output[field]) if output[field] % 1 == 0 else output[field]
         output['retting'].append((row['oblig#'], row['levering'], row['#obliger'], row['timer']))
 
-    output['total_hours'] = data[data['dato'] == 'Totalt']['timer'].sum()
+    output['total_hours'] = data['timer'].max()
     return output
 
 def read_python_dict(filename):
