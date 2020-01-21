@@ -8,6 +8,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from sys import argv
 from ast import literal_eval
+from collections import defaultdict
 
 def init_dict(firstname, lastname, course, date_of_birth, month):
     return {
@@ -26,7 +27,7 @@ def init_dict(firstname, lastname, course, date_of_birth, month):
         'klasseromstime':      0,
         'kommunikasjon':       0,
         'annet':               0,
-        'annet_info':         [],
+        'annet_info':         defaultdict(int),
         'retting':            []
     }
 
@@ -43,7 +44,7 @@ def fill_dict(output, data):
         sum_fields += output[field]
 
     for index, notes in data[data['type'] == 'annet'].iterrows():
-        output['annet_info'].append((notes['info'], notes['timer']))
+        output['annet_info'][notes['info']] += notes['timer']
 
     for index, row in data[data['type'] == 'retting'].iterrows():
         output[field] = int(output[field]) if output[field] % 1 == 0 else output[field]
@@ -72,7 +73,8 @@ def draw_to_canvas(can, data):
     safe_draw(can, data, 308, 430, 'kommunikasjon')
     safe_draw(can, data, 308, 400, 'annet')
 
-    for i, (info, timer) in enumerate(data['annet_info']):
+    # Annet info (defaultdict)
+    for i, (info, timer) in enumerate(data['annet_info'].items()):
         can.drawString(42, 398 - (i * 12), f'{info} ({timer})')
 
     for y, tup in enumerate(data['retting']):
