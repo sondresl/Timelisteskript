@@ -32,10 +32,10 @@ Må ha følgende kolonner:
 - oblig#   (Nummer på obligen)
 - levering (Hvilket forsøk)
 
-Totalt antall timer blir hentet gjennom å finne det største tallet i 'timer' kolonner, så alle timene må summeres og legges på en egen rad.
+Totalt antall timer blir hentet gjennom å summere alle timene. Det må derfor ikke være en egen rad med summen av alle timene dine i regnearket.
 
 Under info er det 7 kategorier:
-- meetings (for gruppelærermøter)
+- meetings (for gruppelærermøter og evt andre møter)
 - lab_prep
 - lab
 - class_prep
