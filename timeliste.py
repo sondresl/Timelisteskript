@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import date
 from sys import argv
 from pprint import pprint
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -47,8 +48,9 @@ def fill_dict(output, data):
     for index, row in data[data['type'] == 'retting'].iterrows():
         output[field] = int(output[field]) if output[field] % 1 == 0 else output[field]
         output['retting'].append((row['oblig#'], row['levering'], row['#obliger'], row['timer']))
+        sum_fields += row['timer']
 
-    output['total_hours'] = data['timer'].max()
+    output['total_hours'] = sum_fields
     return output
 
 def read_python_dict(filename):
@@ -77,6 +79,8 @@ def draw_to_canvas(can, data):
         for x, val in enumerate(tup):
             val = int(val) if val % 1 == 0 else val
             can.drawString(42 + (x * 130), 260 - (y * 30), str(val))
+
+    can.drawString(42, 100,date.today().strftime("%d/%m/%Y"))
 
 
 def safe_draw(can, info, x, y, key):
@@ -109,6 +113,7 @@ def main():
         print("Usage: python gen_dict.py <firstname> <lastname> <course> <date_of_birth> <month> <csv-file>")
         exit(1)
 
+    print(date.today().strftime("%d/%m/%Y"))
     data = init_dict(*argv[1:-1])
     df = read_data()
     fill_dict(data, df)
