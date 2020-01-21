@@ -113,7 +113,6 @@ def main():
         print("Usage: python gen_dict.py <firstname> <lastname> <course> <date_of_birth> <month> <csv-file>")
         exit(1)
 
-    print(date.today().strftime("%d/%m/%Y"))
     data = init_dict(*argv[1:-1])
     df = read_data()
     fill_dict(data, df)
