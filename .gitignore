@@ -1,6 +1,12 @@
 # Created by https://www.gitignore.io/api/macos,python
 # Edit at https://www.gitignore.io/?templates=macos,python
 
+*.pdf
+eks
+mine-lister/
+out
+*.numbers
+
 ### macOS ###
 # General
 .DS_Store
