@@ -2,6 +2,8 @@
 
 Dette er et personlig prosjekt. Jeg tar ikke ansvar dersom skriptet produserer gale timelister for andre som bruker det.
 
+Se `eksempel.csv` for å se et eksempel. Ved å fjerne dataen i denne filen kan du bruke den som en egen mal.
+
 ## Innstallere
 
 For å generere timelisten trenger du tre elementer, som alle må ligge i samme mappe:
@@ -22,6 +24,8 @@ Eksempelkjøring:
 python timeliste.py Ola Nordmann IN1000 01-01-2000 August testdata.csv
 ```
 
+Jeg foreslår og lage et alias som inkluderer alt frem til måneden, så kan den legges inn manult når skriptet kalles.
+
 ## Inndata (CSV)
 
 Må ha følgende kolonner:
@@ -32,9 +36,9 @@ Må ha følgende kolonner:
 - oblig#   (Nummer på obligen)
 - levering (Hvilket forsøk)
 
-Alle andre kolonner er valgfrie, og vil bli ignorert av skriptet.
+Hvilke kolonner som må fylles inn avhenger av hvilken type det er. Alle typer må ha timeantall, men bare retting vil bruke obliger og leveringsinformasjonen.
 
-Totalt antall timer blir hentet gjennom å summere alle timene. *Det må derfor ikke være en egen rad med summen av alle timene dine i regnearket.*
+Totalt antall timer blir hentet gjennom å summere alle timene. *Det må derfor ikke være en egen rad med summen av alle timene dine i inputfilen.*
 
 Under info er det 7 kategorier:
 - meetings (for gruppelærermøter og evt andre møter)
@@ -45,3 +49,5 @@ Under info er det 7 kategorier:
 - kommunikasjon
 - annet
 - retting
+
+Dersom du skriver samme type info under `annet` så vil skriptet ikke duplisere feltene, men heller summe timene opp til ett felt.
