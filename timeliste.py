@@ -6,9 +6,9 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-from sys import argv
 from ast import literal_eval
 from collections import defaultdict
+
 
 def init_dict(firstname, lastname, course, date_of_birth, month):
     return {
@@ -36,7 +36,7 @@ def read_data():
 
 def fill_dict(output, data):
     FIELDS = ['meetings', 'lab_prep', 'lab', 'class_prep', 'class', 'kommunikasjon', 'annet']
-    sum_fields = 0
+    sum_fields = 0  # Will be the final hours tally
 
     for field in FIELDS:
         output[field] = data[data['type'] == field]['timer'].sum()
@@ -53,10 +53,6 @@ def fill_dict(output, data):
 
     output['total_hours'] = sum_fields
     return output
-
-def read_python_dict(filename):
-    with open(filename) as f:
-        return literal_eval(f.read())
 
 def draw_to_canvas(can, data):
     safe_draw(can, data,  42, 745, 'firstname')
@@ -89,7 +85,8 @@ def safe_draw(can, info, x, y, key):
     if info[key]:
         can.drawString(x, y, str(info[key]))
 
-def write_pdf(data, outputname='destination.pdf', timeliste='timeliste-2017.pdf'):
+
+def write_pdf(data, outputname='destination.pdf', timeliste='ADD TIMELISTE TEMPLATE HERE'):
     """Mostly grabbed verbatim from
        https://stackoverflow.com/questions/1180115/add-text-to-existing-pdf-using-python"""
     packet = io.BytesIO()
@@ -109,6 +106,7 @@ def write_pdf(data, outputname='destination.pdf', timeliste='timeliste-2017.pdf'
     output.write(outputStream)
     outputStream.close()
 
+
 def main():
     if len(argv) != 7:
         print("Missing command line arguments!")
@@ -119,6 +117,7 @@ def main():
     df = read_data()
     fill_dict(data, df)
     write_pdf(data)
+
 
 if __name__ == "__main__":
     main()
