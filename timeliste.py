@@ -50,8 +50,19 @@ def fill_dict(output, data):
         output['annet_info'][notes['info']] += notes['timer']
 
     for index, row in data[data['type'] == 'retting'].iterrows():
-        output[field] = int(output[field]) if output[field] % 1 == 0 else output[field]
-        output['retting'].append((row['oblig#'], row['levering'], row['#obliger'], row['timer']))
+
+        n = row['oblig#']
+        l = row['levering']
+        a = row['#obliger']
+        t = row['timer']
+
+        for i, (num, lev, ant, tim) in enumerate(output['retting']):
+            if (num, lev) == (n, l):
+                output['retting'][i] = (num, lev, ant + a, tim + t)
+                break
+        else:
+            output['retting'].append((n, l, a, t))
+
         sum_fields += row['timer']
 
     output['total_hours'] = sum_fields
