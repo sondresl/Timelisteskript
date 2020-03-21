@@ -1,8 +1,8 @@
 # Scipt for å generere timelister for gruppelærere ved UiO
 
-Dette er et personlig prosjekt. Jeg tar ikke ansvar dersom skriptet produserer gale timelister for andre som bruker det.
+Dette er et personlig prosjekt. Jeg tar ikke ansvar dersom skriptet produserer gale timelister for andre som bruker det. :|
 
-Se `eksempel.csv` for å se et eksempel. Ved å fjerne dataen i denne filen kan du bruke den som en egen mal.
+Se `eksempel.csv` for å se et eksempel. Bruk gjerne denne filen som en mal for dine egne timelister.
 
 ## Innstallere
 
@@ -40,14 +40,18 @@ Hvilke kolonner som må fylles inn avhenger av hvilken type det er. Alle typer m
 
 Totalt antall timer blir hentet gjennom å summere alle timene. *Det må derfor ikke være en egen rad med summen av alle timene dine i inputfilen.*
 
-Under info er det 7 kategorier:
-- meetings (for gruppelærermøter og evt andre møter)
+Under info er det 7 kategorier (engelske navn for å unngå bruk av æ, ø og å):
+- meeting (for gruppelærermøter og evt andre møter)
 - lab_prep
 - lab
 - class_prep
 - class
-- kommunikasjon
-- annet
-- retting
+- communication
+- other
+- oblig (for retting av obliger)
 
 Dersom du skriver samme type info under `annet` så vil skriptet ikke duplisere feltene, men heller summe timene opp til ett felt.
+
+## Notater
+
+Dette prosjektet inneholder en salig blanding av norsk og engelsk. Jeg beklager det, men det er sånn blir.

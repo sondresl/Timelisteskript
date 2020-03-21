@@ -2,11 +2,11 @@ dato,timer,type,info,#obliger,oblig#,levering
 man. 4. mars,1.00,lab_prep,,,,
 tir. 5. mars,4.00,lab,,4,2,
 ons. 6. mars,1.00,meetings,,,,
-ons. 6. mars,2.50,annet,Gruppelærerseminar,,,
-ons. 6. mars,2.50,annet,Gruppelærerseminar,,,
+ons. 6. mars,2.50,other,Gruppelærerseminar,,,
+ons. 6. mars,2.50,other,Gruppelærerseminar,,,
 fre. 8. mars,2.00,class_prep,,,,
 fre. 8. mars,2.00,class,,,,
-,0.75,retting,,4,2,2
+,0.75,oblig,,4,2,2
 tir. 12. mars,4.00,lab,,5,3,
 ons. 13. mars,1.00,meetings,,,,
 fre. 15. mars,1.00,class_prep,,,,
@@ -15,7 +15,7 @@ tir. 19. mars,4.00,lab,,2,3,
 ons. 20. mars,1.00,meetings,,,,
 fre. 22. mars,1.00,class_prep,,,,
 fre. 22. mars,2.00,class,,,,
-,2.50,retting,,7,3,1
-,2.50,retting,,7,3,1
+,2.50,oblig,,7,3,1
+,2.50,oblig,,7,3,1
 tir. 26. mars,4.00,lab,,2,3,
 ons. 27. mars,1.00,meetings,,,,

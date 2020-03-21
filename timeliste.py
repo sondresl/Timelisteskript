@@ -26,19 +26,19 @@ def init_dict(firstname, lastname, course, date_of_birth, month):
         'meetings':            0,
         'lab_prep':            0,
         'lab':                 0,
-        'klasseromstime_prep': 0,
-        'klasseromstime':      0,
-        'kommunikasjon':       0,
-        'annet':               0,
-        'annet_info':         defaultdict(int),
-        'retting':            []
+        'class_prep':          0,
+        'class':               0,
+        'communication':       0,
+        'other':               0,
+        'other_info':          defaultdict(int),
+        'oblig':               []
     }
 
 def read_data():
     return pd.read_csv(argv[-1])
 
 def fill_dict(output, data):
-    FIELDS = ['meetings', 'lab_prep', 'lab', 'class_prep', 'class', 'kommunikasjon', 'annet']
+    FIELDS = ['meetings', 'lab_prep', 'lab', 'class_prep', 'class', 'communication', 'other']
     sum_fields = 0  # Will be the final hours tally
 
     for field in FIELDS:
@@ -46,53 +46,57 @@ def fill_dict(output, data):
         output[field] = int(output[field]) if output[field] % 1 == 0 else output[field]
         sum_fields += output[field]
 
-    for index, notes in data[data['type'] == 'annet'].iterrows():
-        output['annet_info'][notes['info']] += notes['timer']
+    for index, notes in data[data['type'] == 'other'].iterrows():
+        output['other_info'][notes['info']] += notes['timer']
 
-    for index, row in data[data['type'] == 'retting'].iterrows():
+    for index, row in data[data['type'] == 'oblig'].iterrows():
 
-        n = row['oblig#']
-        l = row['levering']
-        a = row['#obliger']
-        t = row['timer']
+        ny_num = row['oblig#']
+        ny_levering = row['levering']
+        ny_antall = row['#obliger']
+        ny_timer = row['timer']
 
-        for i, (num, lev, ant, tim) in enumerate(output['retting']):
-            if (num, lev) == (n, l):
-                output['retting'][i] = (num, lev, ant + a, tim + t)
+        for i, (num, lev, ant, tim) in enumerate(output['oblig']):
+            if (num, lev) == (ny_num, ny_levering):
+                output['oblig'][i] = (num, lev, ant + ny_antall, tim + ny_timer)
                 break
         else:
-            output['retting'].append((n, l, a, t))
+            output['oblig'].append((ny_num, ny_levering, ny_antall, ny_timer))
 
         sum_fields += row['timer']
 
     output['total_hours'] = sum_fields
     return output
 
-def draw_to_canvas(can, data):
-    safe_draw(can, data,  42, 745, 'firstname')
-    safe_draw(can, data, 217, 745, 'course_code')
-    safe_draw(can, data, 394, 745, 'date_of_birth')
-    safe_draw(can, data,  42, 700, 'lastname')
-    safe_draw(can, data, 217, 700, 'month')
-    safe_draw(can, data, 394, 700, 'total_hours')
-    safe_draw(can, data, 308, 580, 'meetings')
-    safe_draw(can, data, 308, 550, 'lab_prep')
-    safe_draw(can, data, 308, 520, 'lab')
-    safe_draw(can, data, 308, 490, 'class_prep')
-    safe_draw(can, data, 308, 460, 'class')
-    safe_draw(can, data, 308, 430, 'kommunikasjon')
-    safe_draw(can, data, 308, 400, 'annet')
+def draw_to_canvas(canvas, data):
+    """ The offsets used in drawString were found through
+        trial and error, and are hardcoded to the particular template
+        we are using. (i * 12) specifies a horizontal offset for
+        each of the fields. """
+    safe_draw(canvas, data,  42, 745, 'firstname')
+    safe_draw(canvas, data, 217, 745, 'course_code')
+    safe_draw(canvas, data, 394, 745, 'date_of_birth')
+    safe_draw(canvas, data,  42, 700, 'lastname')
+    safe_draw(canvas, data, 217, 700, 'month')
+    safe_draw(canvas, data, 394, 700, 'total_hours')
+    safe_draw(canvas, data, 308, 580, 'meetings')
+    safe_draw(canvas, data, 308, 550, 'lab_prep')
+    safe_draw(canvas, data, 308, 520, 'lab')
+    safe_draw(canvas, data, 308, 490, 'class_prep')
+    safe_draw(canvas, data, 308, 460, 'class')
+    safe_draw(canvas, data, 308, 430, 'communication')
+    safe_draw(canvas, data, 308, 400, 'other')
 
     # Annet info (defaultdict)
-    for i, (info, timer) in enumerate(data['annet_info'].items()):
-        can.drawString(42, 398 - (i * 12), f'{info} ({timer})')
+    for i, (info, timer) in enumerate(data['other_info'].items()):
+        canvas.drawString(42, 398 - (i * 12), f'{info} ({timer})')
 
-    for y, tup in enumerate(data['retting']):
+    for y, tup in enumerate(data['oblig']):
         for x, val in enumerate(tup):
             val = int(val) if val % 1 == 0 else val
-            can.drawString(42 + (x * 130), 260 - (y * 30), str(val))
+            canvas.drawString(42 + (x * 130), 260 - (y * 30), str(val))
 
-    can.drawString(42, 100,date.today().strftime("%d/%m/%Y"))
+    canvas.drawString(42, 100,date.today().strftime("%d/%m/%Y"))
 
 
 def safe_draw(can, info, x, y, key):
@@ -106,8 +110,9 @@ def write_pdf(data):
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
 
-    timeliste = '/Users/sondrelunde/dev/Timeliste/timeliste-mal.pdf'
+    assert MONTH != '', 'MONTH has not been set'
     outputname = f'timeliste_{MONTH}.pdf'
+    timeliste = '/Users/sondrelunde/dev/Timeliste/timeliste-mal.pdf'
 
     draw_to_canvas(can, data)
     can.save()
