@@ -9,6 +9,8 @@ from reportlab.lib.pagesizes import letter
 from ast import literal_eval
 from collections import defaultdict
 
+# Denne må settes riktig!
+TIMELISTE = '/Users/sondrelunde/dev/Timeliste/timeliste-mal.pdf'
 MONTH = ''
 
 def init_dict(firstname, lastname, course, date_of_birth, month):
@@ -112,14 +114,13 @@ def write_pdf(data):
 
     assert MONTH != '', 'MONTH has not been set'
     outputname = f'timeliste_{MONTH}.pdf'
-    timeliste = '/Users/sondrelunde/dev/Timeliste/timeliste-mal.pdf'
 
     draw_to_canvas(can, data)
     can.save()
 
     packet.seek(0)
     new_pdf = PdfFileReader(packet)
-    existing_pdf = PdfFileReader(open(timeliste, "rb"))
+    existing_pdf = PdfFileReader(open(TIMELISTE, "rb"))
     output = PdfFileWriter()
     page = existing_pdf.getPage(0)
     page.mergePage(new_pdf.getPage(0))

@@ -1,6 +1,6 @@
-# Scipt for å generere timelister for gruppelærere ved UiO
+# Skript for å generere timelister for gruppelærere ved UiO
 
-Dette er et personlig prosjekt. Jeg tar ikke ansvar dersom skriptet produserer gale timelister for andre som bruker det. :|
+Dette er et personlig prosjekt. Jeg tar ikke ansvar dersom skriptet produserer gale timelister for andre som bruker det. Riktig bruk krever at `csv`-filene er skrevet riktig.
 
 Se `eksempel.csv` for å se et eksempel. Bruk gjerne denne filen som en mal for dine egne timelister.
 
@@ -9,7 +9,7 @@ Se `eksempel.csv` for å se et eksempel. Bruk gjerne denne filen som en mal for 
 For å generere timelisten trenger du tre elementer, som alle må ligge i samme mappe:
 
 - Skriptet
-- Blank timeliste
+- Blank timeliste [[link (uio.no, pdf)](https://www.uio.no/for-ansatte/arbeidsstotte/sta/enheter/mn/institutter/ifi/undervisning/gruppelarer/timeliste-2017.pdf)]
 - Inndata (i form av en `.csv` fil)
 
 Det er noen dependencies:
@@ -24,7 +24,10 @@ Eksempelkjøring:
 python timeliste.py Ola Nordmann IN1000 01-01-2000 August testdata.csv
 ```
 
-Jeg foreslår og lage et alias som inkluderer alt frem til måneden, så kan den legges inn manult når skriptet kalles.
+Jeg foreslår og lage et alias som inkluderer alt frem til måneden, så kan den legges inn manult når skriptet kalles, noe som dette:
+```bash
+alias timeliste='python timeliste.py Ola Nordmann IN1000 01-01-2000'
+```
 
 ## Inndata (CSV)
 
