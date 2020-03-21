@@ -9,8 +9,11 @@ from reportlab.lib.pagesizes import letter
 from ast import literal_eval
 from collections import defaultdict
 
+MONTH = ''
 
 def init_dict(firstname, lastname, course, date_of_birth, month):
+    global MONTH
+    MONTH = month
     return {
         # Header
         'firstname':           firstname,
@@ -86,11 +89,14 @@ def safe_draw(can, info, x, y, key):
         can.drawString(x, y, str(info[key]))
 
 
-def write_pdf(data, outputname='destination.pdf', timeliste='ADD TIMELISTE TEMPLATE HERE'):
+def write_pdf(data):
     """Mostly grabbed verbatim from
        https://stackoverflow.com/questions/1180115/add-text-to-existing-pdf-using-python"""
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
+
+    timeliste = '/Users/sondrelunde/dev/Timeliste/timeliste-mal.pdf'
+    outputname = f'timeliste_{MONTH}.pdf'
 
     draw_to_canvas(can, data)
     can.save()
