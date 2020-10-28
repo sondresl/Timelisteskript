@@ -1,9 +1,9 @@
-dato,timer,type,info,#obliger,oblig#,levering
+dato,timer,type,#obliger,oblig#,levering,info
 man. 4. mars,1.00,lab_prep,,,,
 tir. 5. mars,4.00,lab,,4,2,
 ons. 6. mars,1.00,meetings,,,,
-ons. 6. mars,2.50,other,Gruppelærerseminar,,,
-ons. 6. mars,2.50,other,Gruppelærerseminar,,,
+ons. 6. mars,2.50,other,,,,Gruppelærerseminar
+ons. 6. mars,2.50,other,,,,Gruppelærerseminar
 fre. 8. mars,2.00,class_prep,,,,
 fre. 8. mars,2.00,class,,,,
 ,0.75,oblig,,4,2,2
